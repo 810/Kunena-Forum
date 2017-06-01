@@ -1666,6 +1666,7 @@ class KunenaControllerTopic extends KunenaController
 			$target  = KunenaForumMessageHelper::get($this->mesid);
 			$message = $target;
 			$log     = KunenaLog::LOG_POST_APPROVE;
+			$ismessage = JText::_('COM_KUNENA_MODERATE_APPROVED_MESSAGE');
 		}
 		else
 		{
@@ -1673,6 +1674,7 @@ class KunenaControllerTopic extends KunenaController
 			$target  = KunenaForumTopicHelper::get($this->id);
 			$message = KunenaForumMessageHelper::get($target->first_post_id);
 			$log     = KunenaLog::LOG_TOPIC_APPROVE;
+			$ismessage = JText::_('COM_KUNENA_MODERATE_APPROVED_TOPIC');
 		}
 
 		$topic    = $message->getTopic();
@@ -1692,17 +1694,9 @@ class KunenaControllerTopic extends KunenaController
 				);
 			}
 
+			KunenaForumMessage::getInstance()->sendNotification($topic->getUrl(), true);
+
 			$this->app->enqueueMessage(JText::_('COM_KUNENA_MODERATE_APPROVE_SUCCESS'));
-
-			// Only email if message wasn't modified by the author before approval
-			// TODO: this is just a workaround for #1862, we need to find better solution.
-
-			$modifiedByAuthor = ($message->modified_by == $message->userid);
-
-			if (!$modifiedByAuthor)
-			{
-				$target->sendNotification();
-			}
 		}
 		else
 		{

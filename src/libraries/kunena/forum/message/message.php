@@ -355,7 +355,7 @@ class KunenaForumMessage extends KunenaDatabaseObject
 	 * @return boolean|null
 	 * @since Kunena
 	 */
-	public function sendNotification($url = null)
+	public function sendNotification($url = null, $hold = false)
 	{
 		$config = KunenaFactory::getConfig();
 
@@ -364,22 +364,11 @@ class KunenaForumMessage extends KunenaDatabaseObject
 			return null;
 		}
 
-		if ($this->hold > 1)
-		{
-			return null;
-		}
-		elseif ($this->hold == 1)
-		{
-			$mailsubs   = 0;
-			$mailmods   = $config->mailmod >= 0;
-			$mailadmins = $config->mailadmin >= 0;
-		}
-		else
-		{
+
 			$mailsubs   = (bool) $config->allowsubscriptions;
 			$mailmods   = $config->mailmod >= 1;
 			$mailadmins = $config->mailadmin >= 1;
-		}
+
 
 		$once = false;
 
@@ -464,6 +453,27 @@ class KunenaForumMessage extends KunenaDatabaseObject
 			$mail = JFactory::getMailer();
 			$mail->setSubject($mailsubject);
 			$mail->setSender(array($config->getEmail(), $mailsender));
+
+			if ($hold)
+			{
+				// Render the email.
+				$layout = KunenaLayout::factory('Email/Approve')->debug(false)
+					->set('mail', $mail)
+					->set('message', $topic->first_post_message)
+					->set('title', $mailsubject)
+					->set('messageLink', $topic->getUrl());
+
+				try
+				{
+					$body = trim($layout->render());
+					$mail->setBody($body);
+				}
+				catch (Exception $e)
+				{
+					$success = false;
+					JLog::add($e->getMessage(), JLog::ERROR, 'kunena');
+				}
+			}
 
 			// Send email to all subscribers.
 			if (!empty($receivers[1]))

@@ -284,8 +284,38 @@ class KunenaControllerTopics extends KunenaController
 			{
 				if ($topic->authorise('approve') && $topic->publish(KunenaForum::PUBLISHED))
 				{
+					$ismessage = JText::_('COM_KUNENA_MODERATE_APPROVED_TOPIC');
 					$message = JText::_('COM_KUNENA_MODERATE_APPROVE_SUCCESS');
 					$topic->sendNotification();
+
+					$mailsubject = $this->config->board_title . ": " . $ismessage;
+
+					jimport('joomla.environment.uri');
+
+					$mail = JFactory::getMailer();
+					$mail->setSender($this->config->email);
+					$mail->setSubject($mailsubject);
+
+					// Render the email.
+					$layout = KunenaLayout::factory('Email/Approve')
+						->set('mail', $mail)
+						->set('message', $topic->first_post_message)
+						->set('me', $this->me)
+						->set('title', $ismessage);
+
+					try
+					{
+						$body = trim($layout->render());
+						$mail->setBody($body);
+					}
+					catch (Exception $e)
+					{
+						$this->app->enqueueMessage(JText::_('COM_KUNENA_MODERATE_APPROVE_FAILED'));
+					}
+
+
+
+					KunenaEmail::send($mail, $topic->getAuthor()->email);
 				}
 				else
 				{

@@ -326,12 +326,14 @@ class KunenaForumTopic extends KunenaDatabaseObject
 	 *
 	 * @param   null|string $url
 	 *
+	 * @param null          $hold
+	 *
 	 * @since Kunena
 	 */
-	public function sendNotification($url = null)
+	public function sendNotification($url = null, $hold = null)
 	{
 		// Reload message just in case if it was published by bulk update.
-		KunenaForumMessageHelper::get($this->first_post_id, true)->sendNotification($url);
+		KunenaForumMessageHelper::get($this->first_post_id, true)->sendNotification($url, $hold);
 	}
 
 	/**
