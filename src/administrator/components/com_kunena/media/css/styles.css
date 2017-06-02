@@ -12,3 +12,143 @@
 	border-color: transparent;
 	box-shadow: none;
 }
+
+#kunena.admin.override .tg-list {
+	text-align: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+#kunena.admin.override .tg-list-item {
+	margin: 0 2em;
+}
+
+#kunena.admin.override .tgl {
+	display: none;
+}
+
+#kunena.admin.override .tgl,
+#kunena.admin.override .tgl:after,
+#kunena.admin.override .tgl:before,
+#kunena.admin.override .tgl *,
+#kunena.admin.override .tgl *:after,
+#kunena.admin.override .tgl *:before,
+#kunena.admin.override .tgl + .tgl-btn {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#kunena.admin.override .tgl::-moz-selection,
+#kunena.admin.override .tgl:after::-moz-selection,
+#kunena.admin.override .tgl:before::-moz-selection,
+#kunena.admin.override .tgl *::-moz-selection,
+#kunena.admin.override .tgl *:after::-moz-selection,
+#kunena.admin.override .tgl *:before::-moz-selection,
+#kunena.admin.override .tgl + .tgl-btn::-moz-selection {
+	background: none;
+}
+
+#kunena.admin.override .tgl::selection,
+#kunena.admin.override .tgl:after::selection,
+#kunena.admin.override .tgl:before::selection,
+#kunena.admin.override .tgl *::selection,
+#kunena.admin.override .tgl *:after::selection,
+#kunena.admin.override .tgl *:before::selection,
+#kunena.admin.override .tgl + .tgl-btn::selection {
+	background: none;
+}
+
+#kunena.admin.override .tgl + .tgl-btn {
+	outline: 0;
+	display: block;
+	width: 4em;
+	height: 2em;
+	position: relative;
+	cursor: pointer;
+}
+
+#kunena.admin.override .tgl + .tgl-btn:after,
+#kunena.admin.override .tgl + .tgl-btn:before {
+	position: relative;
+	display: block;
+	content: "";
+	width: 50%;
+	height: 100%;
+}
+
+#kunena.admin.override .tgl + .tgl-btn:after {
+	left: 0;
+}
+
+#kunena.admin.override .tgl + .tgl-btn:before {
+	display: none;
+}
+
+#kunena.admin.override .tgl:checked + .tgl-btn:after {
+	left: 50%;
+}
+
+#kunena.admin.override .tgl-flat + .tgl-btn {
+	padding: 2px;
+	-webkit-transition: all .2s ease;
+	transition: all .2s ease;
+	background: #fff;
+	border: 4px solid red;
+	border-radius: 2em;
+}
+
+#kunena.admin.override .tgl-flat + .tgl-btn:after {
+	-webkit-transition: all .2s ease;
+	transition: all .2s ease;
+	background: red;
+	content: "";
+	border-radius: 1em;
+}
+
+#kunena.admin.override .tgl-flat:checked + .tgl-btn {
+	border: 4px solid #7FC6A6;
+}
+
+#kunena.admin.override .tgl-flat:checked + .tgl-btn:after {
+	left: 50%;
+	background: #7FC6A6;
+}
+
+#kunena.admin.override html, #kunena.admin.override body {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 100%;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	font-family: sans-serif;
+}
+
+#kunena.admin.override ul, #kunena.admin.override li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#kunena.admin.override label {
+	display: inline-block !important;
+}

@@ -1029,6 +1029,11 @@ class KunenaUser extends JObject
 
 		if ($type == 'title')
 		{
+			if ($config->rankimages != 0)
+			{
+				return null;
+			}
+
 			return $rank->rank_title;
 		}
 
